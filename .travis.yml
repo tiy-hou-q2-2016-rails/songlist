@@ -1,8 +1,17 @@
 language: ruby
 rvm:
-  - 2.3.0
+- 2.3.0
 addons:
-  postgresql: "9.4"
+  postgresql: '9.4'
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - cp config/database.yml.travis config/database.yml
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
+deploy:
+  provider: heroku
+  api_key:
+    secure: g0wb/hRXAnMUMAQo2gzCKyt6Un/YGtmDvBw+X3XHqI4uDzFlyDMzb2VS9/IONTSv4dET0pX2wOgnevq7WyBH1PM0NPx6l3mwsCys49mkiPAkWEnpIL+EIqjjFGlgeTZk7HBrFCdFaxRymX3MVcJfnVMU+Lobw1h1R+knxPJa3t/EvxCQ2KJWO+B5xRhejkeoMfWWAsLRQ53T6KL9fzDri+GH0iPBQyeVFYvz5BSFv8Js41/vRPFd4v6DdPJkbbkGnE3L4t90wp7w1gqfvBHoLFFbgpaTdrnswg4ltTTmiXRltwW4eeZOPXK7VpqrUipMoAUd2Zby8FiJR7KDySDAGturvoNCyKdv0GFTHdhvpfmykRx42XNk1RybBAo7DJif4oifvLMjg3YkZJIgdF0gwO9vpFoKGrc6NE3y7qnG9GYqUnPIdkuOmj+8K7X/aJLnlBx9Q4TYa/sMK5zUFNEwrdSi9SMkAvEyMPPLESYKav3vYvdonEeZm898nTur6TbGbXSZ8ERJWDkhBSWIqYPnCsjLasD44xp/pC1B1f7fRxaGACHgEj54usXKKqNGTNIzjreaPeUbiqGsRnxTYaOR3R7vp6A4PKZeR3bHGvNDlAaLffYKiP/d81ds0CwTjMMv0B8TT79vdMY5HIvYw6F1DJUd76taaiheyIeKwAsh8oY=
+  app: songlist-2016
+  on:
+    repo: tiy-hou-q2-2016-rails/songlist
+  run:
+    - "rake db:migrate"
